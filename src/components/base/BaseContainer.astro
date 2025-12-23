@@ -2,6 +2,6 @@
 const { tag: Tag = 'div', class: classes = '' } = Astro.props
 ---
 
-<Tag class={`px-4 mx-auto sm:max-w-screen-sm sm:px-6 md:max-w-screen-md lg:max-w-screen-lg lg:px-8 xl:max-w-screen-xl ${classes}`}>
+<Tag class={`px-4 w-full mx-auto sm:max-w-screen-sm sm:px-6 md:max-w-screen-md lg:max-w-screen-lg lg:px-8 xl:max-w-screen-xl ${classes}`}>
   <slot />
 </Tag>
