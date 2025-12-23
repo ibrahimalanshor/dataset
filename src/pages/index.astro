@@ -21,9 +21,9 @@ function formatDate(str: string | Date) : string {
       <p class="text-gray-500">Daftar lengkap dataset yang tersedia.</p>
     </section>
     <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {dataset.map(data => <div class="border border-gray-200 bg-white rounded-lg p-6 space-y-3 transition hover:shadow-md">
+      {dataset.map(data => <a href={`/${data.id}`} class="block border border-gray-200 bg-white rounded-lg p-6 space-y-3 transition group hover:shadow-md hover:border-blue-300">
         <div class="flex items-center justify-between">
-          <h2 class="font-semibold text-lg">{data.data.name}</h2>
+          <h2 class="font-semibold text-lg transition group-hover:text-blue-600">{data.data.name}</h2>
           <span class="bg-green-100 text-green-900 text-xs font-bold px-2 h-6 rounded inline-flex items-center">{data.data.fileTypes}</span>
         </div>
         <p class="text-gray-600 text-sm line-clamp-2">{data.data.description}</p>
@@ -32,7 +32,7 @@ function formatDate(str: string | Date) : string {
           <span class="w-1 h-1 bg-gray-400 rounded-full shrink-0"></span>
           <span>{formatDate(data.data.latestUpdate)}</span>
         </div>
-      </div>)}
+      </a>)}
     </section>
   </BaseContainer>
 </Default>
