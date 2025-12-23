@@ -1,13 +1,38 @@
 ---
 import Default from "../components/layouts/Default.astro"
 import BaseContainer from "../components/base/BaseContainer.astro"
+import { getCollection } from "astro:content";
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+
+dayjs.extend(localizedFormat)
+
+const dataset = await getCollection('dataset')
+
+function formatDate(str: string | Date) : string {
+  return dayjs(str).format('LL')
+}
 ---
 
 <Default>
-  <BaseContainer tag="main" class="py-10">
+  <BaseContainer tag="main" class="py-10 space-y-8">
     <section class="space-y-2">
       <h1 class="font-bold text-3xl text-gray-900">Dataset</h1>
       <p class="text-gray-500">Daftar lengkap dataset yang tersedia.</p>
+    </section>
+    <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {dataset.map(data => <div class="border border-gray-200 bg-white rounded-lg p-6 space-y-3 transition hover:shadow-md">
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold text-lg">{data.data.name}</h2>
+          <span class="bg-green-100 text-green-900 text-xs font-bold px-2 h-6 rounded inline-flex items-center">{data.data.fileTypes}</span>
+        </div>
+        <p class="text-gray-600 text-sm line-clamp-2">{data.data.description}</p>
+        <div class="text-xs text-gray-400 flex items-center gap-2">
+          <span>{data.data.source}</span>
+          <span class="w-1 h-1 bg-gray-400 rounded-full shrink-0"></span>
+          <span>{formatDate(data.data.latestUpdate)}</span>
+        </div>
+      </div>)}
     </section>
   </BaseContainer>
 </Default>
