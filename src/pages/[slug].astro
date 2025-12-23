@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import Default from '../components/layouts/Default.astro';
+import BaseContainer from '../components/base/BaseContainer.astro';
+
+export async function getStaticPaths() {
+  const dataset = await getCollection('dataset')
+
+  return dataset.map(data => ({
+    params: { slug: data.id },
+    props: { data }
+  }))
+}
+
+const { data } = Astro.props
+---
+
+<Default>
+  <BaseContainer tag="main" class="py-10 space-y-8">
+    <div class="space-y-1">
+      <h1 class="font-bold text-gray-900 text-3xl">{data.data.name}</h1>
+      <p class="text-gray-500 text-lg leading-relaxed">{data.data.description}</p>
+    </div>
+    <div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+      <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+        <h3 class="font-semibold text-sm text-gray-700">Download Item</h3>
+      </div>
+      <div class="overflow-auto">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 font-medium">Nama</th>
+              <th class="px-4 py-3 font-medium">Deskripsi</th>
+              <th class="px-4 py-3 font-medium">Ukuran Data</th>
+              <th class="px-4 py-3 font-medium">Download</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            {data.data.items.map(item => <tr>
+              <td class="px-4 py-3">{item.name}</td>
+              <td class="px-4 py-3">{item.description}</td>
+              <td class="px-4 py-3">{item.total}</td>
+              <td class="px-4 py-3">
+                <a href="" class="text-blue-600 font-bold underline hover:text-blue-800">Download</a>
+              </td>
+            </tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </BaseContainer>
+</Default>
