@@ -3,6 +3,8 @@ import '@fontsource/inter';
 import '../../global.css'
 import BaseContainer from '../base/BaseContainer.astro'
 import { Icon } from 'astro-icon/components'
+
+const base = import.meta.env.BASE_URL
 ---
 
 <html lang="en">
@@ -16,7 +18,7 @@ import { Icon } from 'astro-icon/components'
 	<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
     <nav class="bg-white h-16 border-b border-gray-200 flex items-center">
       <BaseContainer class="flex items-center justify-between">
-        <a href="/" class="font-bold text-xl tracking-tight text-gray-900 transition hover:text-blue-600">Dataset</a>
+        <a href={base} class="font-bold text-xl tracking-tight text-gray-900 transition hover:text-blue-600">Dataset</a>
         <a href="https://github.com/ibrahimalanshor/dataset" class="text-gray-500 transition hover:text-gray-900">
           <Icon name="mingcute:github-fill" class="size-6" />
         </a>
@@ -30,7 +32,7 @@ import { Icon } from 'astro-icon/components'
           <a href="" class="font-semibold text-gray-700">Dataset</a>
         </p>
         <div class="space-x-6">
-          <a href="/about" class="transition hover:text-blue-600">Tentang</a>
+          <a href={`${base}/about`} class="transition hover:text-blue-600">Tentang</a>
           <a href="https://github.com/ibrahimalanshor/dataset" class="transition hover:text-blue-600">Repository</a>
         </div>
       </BaseContainer>

@@ -6,6 +6,7 @@ import BaseCard from "../components/base/BaseCard.astro";
 import { formatDate } from '../utils.ts'
 
 const dataset = await getCollection('dataset')
+const base = import.meta.env.BASE_URL
 ---
 
 <Default>
@@ -15,7 +16,7 @@ const dataset = await getCollection('dataset')
       <p class="text-gray-500">Daftar lengkap dataset yang tersedia.</p>
     </section>
     <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {dataset.map(data => <BaseCard tag="a" href={`/${data.id}`} class="block space-y-3 transition group hover:shadow-md hover:border-blue-300">
+      {dataset.map(data => <BaseCard tag="a" href={`${base}/${data.id}`} class="block space-y-3 transition group hover:shadow-md hover:border-blue-300">
         <div class="flex items-center justify-between">
           <h2 class="font-semibold text-lg transition group-hover:text-blue-600">{data.data.name}</h2>
           <span class="bg-green-100 text-green-900 text-xs font-bold px-2 h-6 rounded inline-flex items-center">{data.data.fileTypes}</span>
