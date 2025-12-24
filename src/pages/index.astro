@@ -2,16 +2,10 @@
 import Default from "../components/layouts/Default.astro"
 import BaseContainer from "../components/base/BaseContainer.astro"
 import { getCollection } from "astro:content";
-import dayjs from 'dayjs'
-import localizedFormat from 'dayjs/plugin/localizedFormat'
-
-dayjs.extend(localizedFormat)
+import BaseCard from "../components/base/BaseCard.astro";
+import { formatDate } from '../utils.ts'
 
 const dataset = await getCollection('dataset')
-
-function formatDate(str: string | Date) : string {
-  return dayjs(str).format('LL')
-}
 ---
 
 <Default>
@@ -21,7 +15,7 @@ function formatDate(str: string | Date) : string {
       <p class="text-gray-500">Daftar lengkap dataset yang tersedia.</p>
     </section>
     <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {dataset.map(data => <a href={`/${data.id}`} class="block border border-gray-200 bg-white rounded-lg p-6 space-y-3 transition group hover:shadow-md hover:border-blue-300">
+      {dataset.map(data => <BaseCard tag="a" href={`/${data.id}`} class="block space-y-3 transition group hover:shadow-md hover:border-blue-300">
         <div class="flex items-center justify-between">
           <h2 class="font-semibold text-lg transition group-hover:text-blue-600">{data.data.name}</h2>
           <span class="bg-green-100 text-green-900 text-xs font-bold px-2 h-6 rounded inline-flex items-center">{data.data.fileTypes}</span>
@@ -32,7 +26,7 @@ function formatDate(str: string | Date) : string {
           <span class="w-1 h-1 bg-gray-400 rounded-full shrink-0"></span>
           <span>{formatDate(data.data.latestUpdate)}</span>
         </div>
-      </a>)}
+      </BaseCard>)}
     </section>
   </BaseContainer>
 </Default>

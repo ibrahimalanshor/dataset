@@ -5,7 +5,7 @@
     "description": "Al-Quran dataset surah, ayat, terjemahan dan tafsir",
     "source": "Quran Kemenag",
     "sourceUrl": "https://quran.kemenag.go.id/",
-    "projectUrl": "https://ibrahimalanshor.github.io/quran-data",
+    "projectUrl": "https://github.com/ibrahimalanshor/quran-data",
     "latestUpdate": "2025-12-21 21:00:00",
     "fileTypes": ["csv"],
     "tags": ["islam", "quran"],
@@ -29,7 +29,7 @@
         "description": "Tafsir Per Ayat",
         "total": 6236,
         "fileType": "csv",
-        "downloadUrl": "https://raw.githubusercontent.com/ibrahimalanshor/quran-data/refs/heads/master/output/verses.csv"
+        "downloadUrl": "https://raw.githubusercontent.com/ibrahimalanshor/quran-data/refs/heads/master/output/tafsir.csv"
       }
     ]
   }

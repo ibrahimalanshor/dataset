@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import Default from '../components/layouts/Default.astro';
 import BaseContainer from '../components/base/BaseContainer.astro';
+import BaseCard from '../components/base/BaseCard.astro'
+import { formatDate } from '../utils.ts'
 
 export async function getStaticPaths() {
   const dataset = await getCollection('dataset')
@@ -21,32 +23,57 @@ const { data } = Astro.props
       <h1 class="font-bold text-gray-900 text-3xl">{data.data.name}</h1>
       <p class="text-gray-500 text-lg leading-relaxed">{data.data.description}</p>
     </div>
-    <div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
-      <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-        <h3 class="font-semibold text-sm text-gray-700">Download Item</h3>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div class="border border-gray-200 rounded-lg overflow-hidden bg-white lg:col-span-2">
+        <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+          <h2 class="font-semibold text-sm text-gray-700">Download Item</h2>
+        </div>
+        <div class="overflow-auto">
+          <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 font-medium">Nama</th>
+                <th class="px-4 py-3 font-medium">Deskripsi</th>
+                <th class="px-4 py-3 font-medium">Ukuran Data</th>
+                <th class="px-4 py-3 font-medium">Download</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              {data.data.items.map(item => <tr>
+                <td class="px-4 py-3">{item.name}</td>
+                <td class="px-4 py-3">{item.description}</td>
+                <td class="px-4 py-3">{item.total}</td>
+                <td class="px-4 py-3">
+                  <a href={item.downloadUrl} class="text-blue-600 font-bold underline hover:text-blue-800">Download</a>
+                </td>
+              </tr>)}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="overflow-auto">
-        <table class="w-full text-sm text-left text-gray-500">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th class="px-4 py-3 font-medium">Nama</th>
-              <th class="px-4 py-3 font-medium">Deskripsi</th>
-              <th class="px-4 py-3 font-medium">Ukuran Data</th>
-              <th class="px-4 py-3 font-medium">Download</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200">
-            {data.data.items.map(item => <tr>
-              <td class="px-4 py-3">{item.name}</td>
-              <td class="px-4 py-3">{item.description}</td>
-              <td class="px-4 py-3">{item.total}</td>
-              <td class="px-4 py-3">
-                <a href="" class="text-blue-600 font-bold underline hover:text-blue-800">Download</a>
-              </td>
-            </tr>)}
-          </tbody>
-        </table>
-      </div>
+      <BaseCard class="space-y-4">
+        <h2 class="font-bold text-gray-900">Detail Dataset</h2>
+        <dl class="space-y-4 text-sm">
+          <div>
+            <dt class="text-gray-400">Sumber</dt>
+            <dd>
+              <a href={data.data.sourceUrl} class="text-gray-900 hover:text-blue-600">{data.data.source}</a>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-gray-400">Project Repository</dt>
+            <dd>
+              <a href={data.data.projectUrl} class="text-gray-900 hover:text-blue-600">{data.data.projectUrl}</a>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-gray-400">Terakhir Diperbarui</dt>
+            <dd class="text-gray-900">
+              {formatDate(data.data.latestUpdate)}
+            </dd>
+          </div>
+        </dl>
+      </BaseCard>
     </div>
   </BaseContainer>
 </Default>
