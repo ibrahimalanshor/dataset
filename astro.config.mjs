@@ -10,5 +10,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   integrations: [icon()],
+  site: 'https://ibrahimalanshor.github.io/dataset',
   base: '/dataset'
 });

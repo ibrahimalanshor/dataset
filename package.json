@@ -16,6 +16,7 @@
     "astro": "^5.16.6",
     "astro-icon": "^1.1.5",
     "astro-seo": "^0.8.4",
+    "astro-sitemap": "^1.0.0",
     "dayjs": "^1.11.19",
     "tailwindcss": "^4.1.18"
   },
