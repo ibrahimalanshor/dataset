@@ -3,17 +3,54 @@ import '@fontsource/inter';
 import '../../global.css'
 import BaseContainer from '../base/BaseContainer.astro'
 import { Icon } from 'astro-icon/components'
+import { SEO } from "astro-seo";
 
 const base = import.meta.env.BASE_URL
+const { title, description, seo } = Astro.props
+
+const meta = {
+  title,
+  description,
+  image: new URL(base + '/banner.jpg', Astro.url.origin).href
+}
+const account = {
+  twitter: '@ibrahiminx'
+}
 ---
 
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+    <SEO
+      charset='utf-8'
+      title={meta.title}
+      description={meta.description}
+      openGraph={{
+        basic: {
+          title: meta.title,
+          type: "website",
+          image: meta.image,
+        },
+        optional: {
+          description: meta.description
+        }
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        creator: account.twitter,
+        title: meta.title,
+        image: meta.image,
+        description: meta.description
+      }}
+      {...seo}
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <slot name="meta" />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${base}/favicon/apple-touch-icon.png`}>
+    <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon/favicon-32x32.png`}>
+    <link rel="icon" type="image/png" sizes="16x16" href={`${base}/favicon/favicon-16x16.png`}>
+    <link rel="manifest" href={`${base}/favicon/site.webmanifest`}>
+    <link rel="sitemap" href={`${base}/sitemap-index.xml`}/>
 	</head>
 	<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
     <nav class="bg-white h-16 border-b border-gray-200 flex items-center">
